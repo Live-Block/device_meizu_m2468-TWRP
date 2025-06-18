@@ -1,0 +1,7 @@
+service secure_element_hal_service /vendor/bin/hw/android.hardware.secure_element@1.2-service-tms
+    class hal
+    user root
+    group nfc root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/sbin
+    disabled
+    seclabel u:r:recovery:s0

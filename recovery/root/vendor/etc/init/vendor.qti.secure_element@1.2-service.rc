@@ -1,0 +1,15 @@
+service vendor.secure_element /vendor/bin/hw/android.hardware.secure_element-service.qti
+    class hal
+    user root
+    group nfc root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/sbin
+    disabled
+    seclabel u:r:recovery:s0
+    
+service secureelement-hal_1_2 /vendor/bin/hw/vendor.qti.secure_element@1.2-service
+    class hal
+    user root
+    group nfc root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/sbin
+    disabled
+    seclabel u:r:recovery:s0
