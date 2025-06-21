@@ -25,10 +25,6 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-on init
-    setprop prepdecrypt.setpatch true
-    start boot-hal-1-2
-
 on early-fs
     write /proc/sys/walt/sched_lib_name "recovery,magiskboot,Updater,updater,update_engine_sideload"
     write /proc/sys/walt/sched_lib_mask_force 255
@@ -47,8 +43,12 @@ on fs
     mount none /tmp/persist /mnt/vendor/persist bind rec
     install_keyring
 
+on init
+    setprop prepdecrypt.setpatch true
+    start boot-hal-1-2
+
 on boot
-    setprop sys.usb.config adb    
+    setprop sys.usb.config adb
 
 on property:twrp.modules.loaded=true
     # Mount debugfs
@@ -63,18 +63,11 @@ on property:twrp.modules.loaded=true
     wait /sys/kernel/boot_adsp/ssr
     write /sys/kernel/boot_adsp/ssr 1
     wait /sys/class/power_supply/battery
-    start vendor.health-default
+    start vendor.qseecomd
+    start health-hal-2-1
+    start vendor.qti.vibrator
     umount /firmware
 
-on property:hwservicemanager.ready=true
-    start vendor.qseecomd
-    start vendor.keymint-qti
-    setprop sys.boot_completed 1
-
 on property:vendor.sys.listeners.registered=true
-    start vendor.qti.vibrator
     start gatekeeper-1-0
-    start secureelement-hal_1_2
-    start secure_element_hal_service
-
-import /init.recovery.qcom_decrypt.rc
+    start vendor.keymint-qti

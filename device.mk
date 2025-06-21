@@ -10,6 +10,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 # Configure core_64_bit_only.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 
+# Configure Virtual A/B
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+
 # Configure virtual_ab compression.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
 
@@ -22,14 +25,7 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 # API
 BOARD_SHIPPING_API_LEVEL := 34
 PRODUCT_SHIPPING_API_LEVEL := 34
-
 PRODUCT_TARGET_VNDK_VERSION := 34
-
-#Encryption
-PRODUCT_PACKAGES += \
-    qcom_decrypt \
-    qcom_decrypt_fbe
-
 PRODUCT_PACKAGES += \
     bootctrl.meizu_sm8550.recovery \
     android.hardware.boot@1.2-impl-qti.recovery
@@ -43,3 +39,6 @@ PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH)
+
+TWRP_REQUIRED_MODULES += \
+    flyme_prebuilt
