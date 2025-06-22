@@ -68,8 +68,5 @@ on property:twrp.modules.loaded=true
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start prepdecrypt.vendor
 
-on property:hwservicemanager.ready=true
-    start vendor.qseecomd
-
 on property:vendor.sys.listeners.registered=true
     start vendor.keymint-qti
